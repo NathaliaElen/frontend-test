@@ -1,10 +1,13 @@
 import "./App.css";
+import SymbolList from "./components/SymbolList";
 
 function App() {
   return (
-    <>
-      <h1>Início</h1>
-    </>
+    <div>
+      <main>
+        <SymbolList />
+      </main>
+    </div>
   );
 }
 
