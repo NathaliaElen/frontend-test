@@ -1,11 +1,11 @@
 import "./App.css";
-import SymbolList from "./components/SymbolList";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <div>
       <main>
-        <SymbolList />
+        <Home />
       </main>
     </div>
   );
