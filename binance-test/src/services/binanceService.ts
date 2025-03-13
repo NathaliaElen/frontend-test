@@ -1,22 +1,35 @@
-// Requisição à API da Binance para buscar todos os símbolos de negociação (pares de moedas, como BTC/USDT, ETH/BTC etc.)
+// src/services/binanceService.ts
 
-import { ExchangeInfo, Symbol, websocketData } from '../types/binance';
+import { websocketData } from '../types/binance';
 
-const API_URL = 'https://api.binance.com/api/v3/exchangeInfo';
 const WEBSOCKET_URL = 'wss://data-stream.binance.com/stream?streams=';
 
-export async function getSymbols(): Promise<Symbol[]> {
-  try {
-    const response = await fetch(API_URL);
+export function connectWebSocket(
+  symbols: string[],
+  onMessage: (data: websocketData) => void,
+  onError: (error: Event) => void
+): WebSocket {
+  const streams = symbols.map((symbol) => symbol.toLowerCase() + '@ticker').join('/');
+  const url = WEBSOCKET_URL + streams;
+  const ws = new WebSocket(url);
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+  ws.onopen = () => {
+    console.log('WebSocket connected');
+  };
 
-    const data: ExchangeInfo = await response.json();
-    return data.symbols;
-  } catch (error) {
-    console.error('Error fetching symbols:', error);
-    return [];
-  }
+  ws.onmessage = (event) => {
+    const data: websocketData = JSON.parse(event.data);
+    onMessage(data);
+  };
+
+  ws.onerror = (error) => {
+    console.error('WebSocket error:', error);
+    onError(error);
+  };
+
+  ws.onclose = () => {
+    console.log('WebSocket closed');
+  };
+
+  return ws;
 }

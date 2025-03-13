@@ -1,0 +1,44 @@
+/* src/components/PriceMonitor/PriceMonitor.module.css */
+
+.price-monitor-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .list-options {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .list-options select {
+    padding: 8px;
+    margin-right: 10px;
+  }
+  
+  .list-options button {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .price-monitor-container table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .price-monitor-container th,
+  .price-monitor-container td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .price-monitor-container th {
+    background-color: #f2f2f2;
+  }
